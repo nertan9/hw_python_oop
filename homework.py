@@ -1,4 +1,4 @@
-from typing import Dict, List, Type, Union
+from typing import Dict, List, Type
 from dataclasses import dataclass
 
 
@@ -138,18 +138,17 @@ class Swimming(Training):
                 * self.weight)
 
 
-def read_package(workout_type: str, data: List[Union[str, list]]) -> Training:
+def read_package(workout_type: str, data: List[int]) -> Training:
     """Прочитать данные полученные от датчиков."""
 
-    sport_codenames: Dict[str, Type(Training)] = {
+    sport_codenames: Dict[str, Type[Training]] = {
         "SWM": Swimming,
         "RUN": Running,
         "WLK": SportsWalking
     }
     if workout_type in sport_codenames:
         return sport_codenames[workout_type](*data)
-    else:
-        raise ValueError(f"Тренировка с именем {workout_type} не найдена.")
+    raise ValueError(f"Тренировка с именем {workout_type} не найдена.")
 
 
 def main(training: Training) -> None:
